@@ -40,9 +40,9 @@ class path:
 
         x_coords: a list of x coordinates along the optical path
         y_coords: a list of y coordinates along the optical path'''
-        return self.calc_x_coords(ray), self.calc_y_coords(ray)
+        return self.calc_x_coords(), self.calc_y_coords(ray)
 
-    def calc_x_coords(self, ray):
+    def calc_x_coords(self):
         ''' Calculate the x and y coords for the optical path
         ray: an OpticalElements ray
 
@@ -64,9 +64,14 @@ class path:
         return y_coords
 
     def plot_lenses(self, ax):
-        x_coords = [e.matrix[0,1] for e in self.elements]
-        x_coords = np.cumsum(x_coords)
-        x_types = [type(e) for e in self.elements]
+        ''' Represents lenses as dashed lines,
+        labeled with their focal lengths
 
-        for x, ty in zip(x_coords, x_types):
-            if ty==lens: ax.axvline(x, color='black', ls='--')
+        Call after plotting rays'''
+        text_height = ax.get_ylim()[1]*1.2 # Put text 15% above the axes
+
+        for x, e in zip(self.calc_x_coords(), self.elements):
+            if type(e)==lens:
+                ax.axvline(x, color='black', ls='--')
+                ax.text(x, text_height, f'f={e.f}mm', \
+                    horizontalalignment='center')
