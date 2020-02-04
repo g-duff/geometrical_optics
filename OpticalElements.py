@@ -40,20 +40,33 @@ class path:
 
         x_coords: a list of x coordinates along the optical path
         y_coords: a list of y coordinates along the optical path'''
+        return self.calc_x_coords(ray), self.calc_y_coords(ray)
 
-        self.S = S = np.eye(2)
+    def calc_x_coords(self, ray):
+        ''' Calculate the x and y coords for the optical path
+        ray: an OpticalElements ray
+
+        x_coords: a list of x coordinates along the optical path'''
         x_coords = [e.matrix[0,1] for e in self.elements]
         x_coords = np.cumsum(x_coords)
+        return x_coords
 
+    def calc_y_coords(self, ray):
+        ''' Calculate the x and y coords for the optical path
+        ray: an OpticalElements ray
+
+        y_coords: a list of y coordinates along the optical path'''
+        new_ray = np.array([1,1])*ray.vector
         y_coords = []
-
-        new_ray = np.array([1,1])
-        new_ray = new_ray*ray.vector
         for e in self.elements:
             new_ray = e.matrix@new_ray
             y_coords.append(new_ray[0])
+        return y_coords
 
-        return x_coords, y_coords
+    def plot_lenses(self, ax):
+        x_coords = [e.matrix[0,1] for e in self.elements]
+        x_coords = np.cumsum(x_coords)
+        x_types = [type(e) for e in self.elements]
 
-    def plot_ray(self, ax):
-        pass
+        for x, ty in zip(x_coords, x_types):
+            if ty==lens: ax.axvline(x, color='black', ls='--')
