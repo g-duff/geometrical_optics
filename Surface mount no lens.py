@@ -86,8 +86,8 @@ ax2.plot(x1, y1+5)
 add_components(ax2)
 
 ax2.grid(True)
-ax.set_xlabel('z (mm)')
-ax.set_ylabel('y (mm)')
+ax2.set_xlabel('z (mm)')
+ax2.set_ylabel('y (mm)')
 
 plt.tight_layout()
 plt.show()
