@@ -3,7 +3,7 @@ from src.optical_element import IOpticalElement
 from numpy import array
 
 
-class TestIDatabaseConnection(unittest.TestCase):
+class TestIOpticalElement(unittest.TestCase):
 
     def test_inheritance(self):
         # Given
@@ -35,7 +35,7 @@ class TestIDatabaseConnection(unittest.TestCase):
 
 class CompleteImplementation(IOpticalElement):
     def matrix(self):
-        return array([[1, 0],[0, 1]])
+        return array([[1, 0], [0, 1]])
 
 
 class IncompleteImplementation(IOpticalElement):
