@@ -1,5 +1,5 @@
 import unittest
-from src.optical_element import IOpticalElement, FreeSpace
+from src.optical_element import IOpticalElement, FreeSpace, Lens
 from numpy import array, array_equal
 
 
@@ -63,3 +63,26 @@ class TestFreeSpace(unittest.TestCase):
         # Then
         assert array_equal(expected_free_space_matrix,
                            actual_free_space_matrix)
+
+
+class TestLens(unittest.TestCase):
+
+    def test_is_optical_element(self):
+        # Given
+        # When
+        # Then
+        assert issubclass(FreeSpace, IOpticalElement)
+
+    def test_matrix(self):
+        # Given
+        focal_length = 5
+
+        lens = Lens(focal_length)
+        expected_lens_matrix = array([[1, 0], [-1/focal_length, 1]])
+
+        # When
+        actual_lens_matrix = lens.matrix()
+
+        # Then
+        assert array_equal(expected_lens_matrix,
+                           actual_lens_matrix)

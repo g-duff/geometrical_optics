@@ -17,3 +17,14 @@ class FreeSpace(IOpticalElement):
 
     def matrix(self) -> array:
         return array([[1, self.length], [0, 1]])
+
+
+class Lens(IOpticalElement):
+    def __init__(self, focal_length: float):
+        ''' A lens
+
+        focal_length: focal length of the lens'''
+        self.focal_length = focal_length
+
+    def matrix(self) -> array:
+        return array([[1, 0], [-1/self.focal_length, 1]])
