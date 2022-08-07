@@ -44,6 +44,12 @@ class IncompleteImplementation(ILight):
 
 class TestRay(unittest.TestCase):
 
+    def test_is_light(self):
+        # Given
+        # When
+        # Then
+        assert issubclass(Ray, ILight)
+
     def test_vectors(self):
         # Given
         height_above_optical_axis = 10
