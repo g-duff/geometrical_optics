@@ -1,6 +1,6 @@
 import unittest
 from src.light import ILight, Ray
-from numpy import array
+from numpy import array, array_equal
 
 
 class TestIOpticalElement(unittest.TestCase):
@@ -40,3 +40,20 @@ class CompleteImplementation(ILight):
 
 class IncompleteImplementation(ILight):
     pass
+
+
+class TestRay(unittest.TestCase):
+
+    def test_vectors(self):
+        # Given
+        height_above_optical_axis = 10
+        angle_to_optical_axis = 0.1
+        ray = Ray(height_above_optical_axis, angle_to_optical_axis)
+        expected_vectors = array(
+            [height_above_optical_axis, angle_to_optical_axis])
+
+        # When
+        actual_vectors = ray.vectors()
+
+        # Then
+        assert array_equal(expected_vectors, actual_vectors)
