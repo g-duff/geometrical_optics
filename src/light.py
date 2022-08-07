@@ -10,12 +10,12 @@ class ILight(ABC):
 
 class Ray(ILight):
     def __init__(self, height_above_optical_axis: float, angle_to_optical_axis: float):
-        ''' A lens
+        ''' A ray of light
 
         height_above_optical_axis
         angle_to_optical_axis: in radians'''
-        self.height = height_above_optical_axis
-        self.theta = angle_to_optical_axis
+        self.height_above_optical_axis = height_above_optical_axis
+        self.angle_to_optical_axis = angle_to_optical_axis
 
     def vectors(self) -> array:
-        return array([self.height_above_optical_axis, self.angle_to_optic_axis])
+        return array([self.height_above_optical_axis, self.angle_to_optical_axis])
